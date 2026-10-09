@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telecom Predictive & ML Forecasting Engine</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Chart.js for interactive high performance charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="brand-header">
+      <div class="brand-logo">T</div>
+      <div class="brand-title">
+        <h2>TAROS ML</h2>
+        <p>Telecom Analytics Suite</p>
+      </div>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <button class="active" data-tab="tab-overview">
+          <span class="nav-icon">📊</span> Overview & ML Health
+        </button>
+      </li>
+      <li class="nav-item">
+        <button data-tab="tab-growth">
+          <span class="nav-icon">📈</span> Subscriber Growth Forecast
+        </button>
+      </li>
+      <li class="nav-item">
+        <button data-tab="tab-churn">
+          <span class="nav-icon">⚡</span> Churn Risk & Interventions
+        </button>
+      </li>
+      <li class="nav-item">
+        <button data-tab="tab-demand">
+          <span class="nav-icon">🌐</span> Network Data Demand
+        </button>
+      </li>
+      <li class="nav-item">
+        <button data-tab="tab-nbo">
+          <span class="nav-icon">🎯</span> Expected Recharge & NBO
+        </button>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Application Area -->
+  <div class="main-wrapper">
+    <header class="top-bar">
+      <div class="page-title">
+        <h1 id="header-title">Predictive Intelligence Overview</h1>
+      </div>
+      <div class="system-status">
+        <div class="status-badge">
+          <div class="pulse-dot"></div> ML Models Active (RF + SARIMAX)
+        </div>
+      </div>
+    </header>
+
+    <main class="content-container">
+
+      <!-- TAB 1: OVERVIEW & ML HEALTH -->
+      <section id="tab-overview" class="tab-pane active">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Active Subscribers</span>
+              <div class="kpi-icon icon-cyan">👥</div>
+            </div>
+            <div class="kpi-value" id="kpi-active-subs">--</div>
+            <div class="kpi-subtext">Total active customer accounts</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Avg Churn Risk</span>
+              <div class="kpi-icon icon-red">⚠️</div>
+            </div>
+            <div class="kpi-value" id="kpi-churn-rate">--%</div>
+            <div class="kpi-subtext" id="kpi-high-risk-count">-- High risk churners</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">30-Day Revenue Forecast</span>
+              <div class="kpi-icon icon-green">💰</div>
+            </div>
+            <div class="kpi-value" id="kpi-revenue">₹--</div>
+            <div class="kpi-subtext">Expected recharge inflow</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Monthly Data Throughput</span>
+              <div class="kpi-icon icon-purple">⚡</div>
+            </div>
+            <div class="kpi-value" id="kpi-data-tb">-- TB</div>
+            <div class="kpi-subtext">Consumed across 22 circles</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid-2">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">RFM Customer Segment Distribution</div>
+            </div>
+            <canvas id="chart-rfm" height="180"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Churn Model Feature Importance</div>
+            </div>
+            <canvas id="chart-features" height="180"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: SUBSCRIBER GROWTH FORECAST -->
+      <section id="tab-growth" class="tab-pane">
+        <div class="controls-box">
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Marketing Campaign Impact (Acquisition Boost):</span>
+              <strong id="sim-boost-val">+0%</strong>
+            </div>
+            <input type="range" id="sim-boost-slider" min="0" max="30" value="0" class="custom-slider">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Forecast Time Horizon:</span>
+              <strong id="sim-horizon-val">90 Days</strong>
+            </div>
+            <input type="range" id="sim-horizon-slider" min="30" max="90" step="30" value="90" class="custom-slider">
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">90-Day Subscriber Base Growth & Confidence Bounds</div>
+          </div>
+          <canvas id="chart-growth" height="140"></canvas>
+        </div>
+      </section>
+
+      <!-- TAB 3: CHURN RISK & INTERVENTIONS -->
+      <section id="tab-churn" class="tab-pane">
+        <div class="table-card">
+          <div class="table-header-row">
+            <div class="chart-title">Customer Churn Risk Directory (2,000 Accounts)</div>
+            <div class="search-filter-box">
+              <input type="text" id="search-customer" placeholder="Search by name, ID, circle..." class="custom-input">
+              <select id="filter-risk" class="custom-select">
+                <option value="All">All Churn Risk Levels</option>
+                <option value="High">High Risk (>65%)</option>
+                <option value="Medium">Medium Risk (35-65%)</option>
+                <option value="Low">Low Risk (<35%)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="churn-table">
+              <thead>
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Name</th>
+                  <th>Circle</th>
+                  <th>Recency</th>
+                  <th>Current Plan</th>
+                  <th>Churn Probability</th>
+                  <th>Risk Level</th>
+                  <th>RFM Segment</th>
+                  <th>Intervention Action</th>
+                </tr>
+              </thead>
+              <tbody id="churn-table-body">
+                <!-- Rendered dynamically via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: NETWORK DATA DEMAND -->
+      <section id="tab-demand" class="tab-pane">
+        <div class="dashboard-grid-equal">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Projected Monthly Data Throughput per Circle (TB)</div>
+            </div>
+            <canvas id="chart-data-circle" height="200"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Capacity Status Breakdown</div>
+            </div>
+            <div id="circle-capacity-list" style="max-height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: EXPECTED RECHARGE & NBO -->
+      <section id="tab-nbo" class="tab-pane">
+        <div class="controls-box" style="margin-bottom: 24px;">
+          <input type="text" id="nbo-search-id" placeholder="Enter Customer ID (e.g. C000001, C001816)..." class="custom-input" style="width: 320px;">
+          <button id="nbo-lookup-btn" class="action-btn">Inspect Customer NBO Profile</button>
+        </div>
+
+        <div id="nbo-profile-display" class="chart-card" style="display: none;">
+          <div class="chart-header">
+            <div class="chart-title" id="nbo-customer-name">Customer Intelligence Profile</div>
+            <span id="nbo-risk-badge" class="risk-badge">High Risk</span>
+          </div>
+
+          <div class="kpi-grid" style="margin-bottom: 20px;">
+            <div class="kpi-card">
+              <div class="kpi-title">Current Plan</div>
+              <div class="kpi-value" id="nbo-current-plan" style="font-size: 18px;">--</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Predicted Next Recharge</div>
+              <div class="kpi-value" id="nbo-pred-recharge" style="font-size: 18px; color: var(--accent-green);">₹--</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">RFM Segment</div>
+              <div class="kpi-value" id="nbo-rfm-segment" style="font-size: 18px; color: var(--primary-cyan);">--</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Recency</div>
+              <div class="kpi-value" id="nbo-recency" style="font-size: 18px;">-- days ago</div>
+            </div>
+          </div>
+
+          <div style="background: rgba(0, 242, 254, 0.08); border: 1px solid var(--border-glow); padding: 20px; border-radius: 14px;">
+            <h3 style="font-family: var(--font-heading); color: var(--primary-cyan); margin-bottom: 8px;">Recommended Next-Best-Offer (NBO):</h3>
+            <div style="font-size: 20px; font-weight: 700; margin-bottom: 6px;" id="nbo-rec-plan">--</div>
+            <div style="font-size: 13px; color: var(--text-muted);" id="nbo-rec-reason">--</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- One-Click Intervention Action Modal -->
+  <div class="modal-backdrop" id="action-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Trigger Churn Intervention</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div style="margin-bottom: 20px;" id="modal-body">
+        Select automated marketing retention campaign for this customer.
+      </div>
+      <div style="display: flex; gap: 12px; justify-content: flex-end;">
+        <button class="action-btn" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color);" id="modal-cancel-btn">Cancel</button>
+        <button class="action-btn" id="modal-confirm-btn">Send Campaign Offer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
