@@ -150,7 +150,13 @@ Potential applications of these techniques include:
 
 These are general applications of the techniques used in this project, not claims about measured outcomes from this particular repository.
 
+## Screenshots
+
 <img width="1650" height="1275" alt="Image" src="https://github.com/user-attachments/assets/bfff3a68-4917-4ccc-8283-e9613cb77b1c" />
+
+<img width="1650" height="1275" alt="Image" src="https://github.com/user-attachments/assets/b3a6217b-7bdd-418a-a07e-ec754962dbba" />
+
+<img width="1650" height="1275" alt="Image" src="https://github.com/user-attachments/assets/7f43cd75-d1cf-417e-a144-b7cb0f64c804" />
 
 ## 🔍 Future Improvements
 
